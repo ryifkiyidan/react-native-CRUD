@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, ListGroup } from "react-bootstrap";
+import { Col, ListGroup } from "react-bootstrap";
 import axios from "axios";
 import { API_URL } from "../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -59,7 +59,7 @@ export default class ListCategories extends Component {
                 }
                 style={{ cursor: "pointer" }}
               >
-                <div class="text-left">
+                <div className="text-left">
                   <Icon nama={category.nama} />
                   {category.nama}
                 </div>
