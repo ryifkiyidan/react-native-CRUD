@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, ListGroup } from "react-bootstrap";
+import { Row, Col, ListGroup } from "react-bootstrap";
 import axios from "axios";
 import { API_URL } from "../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,8 +12,7 @@ import {
 const Icon = ({ nama }) => {
   if (nama === "Makanan")
     return <FontAwesomeIcon icon={faUtensils} className="mr-2" />;
-  else if (nama === "Minuman")
-    return <FontAwesomeIcon icon={faCoffee} className="mr-2" />;
+  else if (nama === "Minuman") return <FontAwesomeIcon icon={faCoffee} />;
   else if (nama === "Cemilan")
     return <FontAwesomeIcon icon={faCheese} className="mr-2" />;
   else return <FontAwesomeIcon icon={faUtensils} className="mr-2" />;
@@ -60,10 +59,10 @@ export default class ListCategories extends Component {
                 }
                 style={{ cursor: "pointer" }}
               >
-                <h5>
+                <div class="text-left">
                   <Icon nama={category.nama} />
                   {category.nama}
-                </h5>
+                </div>
               </ListGroup.Item>
             ))}
         </ListGroup>

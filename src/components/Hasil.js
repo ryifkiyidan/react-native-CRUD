@@ -17,18 +17,18 @@ export default class Hasil extends Component {
               <ListGroup.Item>
                 <Row>
                   <Col xs={2}>
-                    <h4>
+                    <div>
                       <Badge pill variant="success">
                         {keranjang.jumlah}
                       </Badge>
-                    </h4>
+                    </div>
                   </Col>
-                  <Col xs={6}>
-                    <h5>{keranjang.produk.nama}</h5>
+                  <Col xs={6} className="text-left">
+                    <div>{keranjang.produk.nama}</div>
                     <p>Rp{numberWithCommas(keranjang.produk.harga)}</p>
                   </Col>
                   <Col xs={4}>
-                    <b className="float-right">
+                    <b className="text-right">
                       Rp{numberWithCommas(keranjang.total_harga)}
                     </b>
                   </Col>
