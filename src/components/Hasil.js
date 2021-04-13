@@ -149,7 +149,7 @@ export default class Hasil extends Component {
               onClick={() => this.deleteKeranjangs()}
               disabled={keranjangs.length < 1}
             >
-              <FontAwesomeIcon icon={faTrash} /> Delete Carts
+              <FontAwesomeIcon icon={faTrash} /> Delete All Carts
             </Button>
           </div>
         </h4>
