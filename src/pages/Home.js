@@ -59,20 +59,20 @@ export default class Home extends Component {
 
   inputCarts = (value) => {
     axios
-      .get(API_URL + "keranjangs?produk.id=" + value.id)
+      .get(API_URL + "keranjangs?product.id=" + value.id)
       .then((res) => {
         if (res.data.length === 0) {
           const keranjang = {
             jumlah: 1,
             total_harga: value.harga,
-            produk: value,
+            product: value,
           };
           axios
             .post(API_URL + "keranjangs", keranjang)
             .then((res) => {
               swal({
                 title: "Success",
-                text: keranjang.produk.nama + " successfully added to carts",
+                text: keranjang.product.nama + " successfully added to carts",
                 icon: "success",
                 button: false,
                 timer: 1000,
@@ -85,14 +85,14 @@ export default class Home extends Component {
           const keranjang = {
             jumlah: res.data[0].jumlah + 1,
             total_harga: res.data[0].total_harga + value.harga,
-            produk: value,
+            product: value,
           };
           axios
             .put(API_URL + "keranjangs/" + res.data[0].id, keranjang)
             .then((res) => {
               swal({
                 title: "Success",
-                text: keranjang.produk.nama + " successfully added to carts",
+                text: keranjang.product.nama + " successfully added to carts",
                 icon: "success",
                 button: false,
                 timer: 1000,
