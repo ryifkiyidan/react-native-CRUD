@@ -123,7 +123,7 @@ export default class Home extends Component {
                 <b>Daftar Produk</b>
               </h4>
               <hr />
-              <Row>
+              <Row className="overflow-auto menu">
                 {menus &&
                   menus.map((menu) => (
                     <Menus

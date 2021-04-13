@@ -24,29 +24,57 @@ export default class TotalBayar extends Component {
       return result + item.total_harga;
     }, 0);
     return (
-      <div className="fixed-bottom">
-        <Row>
-          <Col md={{ span: 3, offset: 9 }} className="px-4">
-            <h5>
-              Total Harga:{" "}
-              <b className="float-right pr-2">
-                Rp{numberWithCommas(totalBayar)}
-              </b>
-            </h5>
-            <Button
-              variant="primary"
-              block
-              className="my-4 mr-2"
-              size="lg"
-              onClick={() => this.submitTotalBayar(totalBayar)}
-              disabled={keranjangs.length < 1}
-            >
-              <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
-              <b>Bayar</b>
-            </Button>
-          </Col>
-        </Row>
-      </div>
+      <>
+        {/* Web */}
+        <div className="fixed-bottom d-none d-md-block">
+          <Row>
+            <Col md={{ span: 3, offset: 9 }} className="px-4">
+              <h5>
+                Total Harga:{" "}
+                <b className="float-right pr-2">
+                  Rp{numberWithCommas(totalBayar)}
+                </b>
+              </h5>
+              <Button
+                variant="primary"
+                block
+                className="my-4 mr-2"
+                size="lg"
+                onClick={() => this.submitTotalBayar(totalBayar)}
+                disabled={keranjangs.length < 1}
+              >
+                <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
+                <b>Bayar</b>
+              </Button>
+            </Col>
+          </Row>
+        </div>
+
+        {/* Mobile */}
+        <div className="d-md-none d-sm-block">
+          <Row>
+            <Col md={{ span: 3, offset: 9 }} className="px-4">
+              <h5>
+                Total Harga:{" "}
+                <b className="float-right pr-2">
+                  Rp{numberWithCommas(totalBayar)}
+                </b>
+              </h5>
+              <Button
+                variant="primary"
+                block
+                className="my-4 mr-2"
+                size="lg"
+                onClick={() => this.submitTotalBayar(totalBayar)}
+                disabled={keranjangs.length < 1}
+              >
+                <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
+                <b>Bayar</b>
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      </>
     );
   }
 }
