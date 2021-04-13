@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Badge, Card, Col, ListGroup, Row } from "react-bootstrap";
+import { Badge, Button, Card, Col, ListGroup, Row } from "react-bootstrap";
 import { numberWithCommas } from "../utils/utils";
 import ModalKeranjang from "./ModalKeranjang";
 import TotalBayar from "./TotalBayar";
 import { API_URL } from "../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default class Hasil extends Component {
   constructor(props) {
@@ -71,6 +73,7 @@ export default class Hasil extends Component {
     axios
       .put(API_URL + "keranjangs/" + this.state.keranjangDetail.id, data)
       .then((res) => {
+        this.props.getKeranjangs();
         swal({
           title: "Success",
           text: data.product.nama + " successfully updated detail cart",
@@ -90,6 +93,7 @@ export default class Hasil extends Component {
     axios
       .delete(API_URL + "keranjangs/" + id)
       .then((res) => {
+        this.props.getKeranjangs();
         swal({
           title: "Success",
           text:
@@ -106,12 +110,48 @@ export default class Hasil extends Component {
     this.handleClose();
   };
 
+  deleteKeranjangs = () => {
+    axios
+      .get(API_URL + "keranjangs")
+      .then((res) => {
+        const keranjangs = res.data;
+        keranjangs.map((item) => {
+          return axios
+            .delete(API_URL + "keranjangs/" + item.id)
+            .then((res) => {
+              console.log(res);
+              this.props.getKeranjangs();
+            })
+            .catch((err) => console.log(err));
+        });
+        swal({
+          title: "Success",
+          text: "Carts successfully deleted",
+          icon: "error",
+          button: false,
+          timer: 1250,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   render() {
     const { keranjangs } = this.props;
     return (
       <Col md={3} mt="2">
         <h4>
-          <b>Hasil</b>
+          <b>Carts</b>
+          <div className="float-right">
+            <Button
+              variant="danger"
+              onClick={() => this.deleteKeranjangs()}
+              disabled={keranjangs.length < 1}
+            >
+              <FontAwesomeIcon icon={faTrash} /> Delete Carts
+            </Button>
+          </div>
         </h4>
         <hr />
         {keranjangs.length !== 0 && (
