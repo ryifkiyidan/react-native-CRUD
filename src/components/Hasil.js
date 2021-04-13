@@ -3,6 +3,9 @@ import { Badge, Col, ListGroup, Row } from "react-bootstrap";
 import { numberWithCommas } from "../utils/utils";
 import ModalKeranjang from "./ModalKeranjang";
 import TotalBayar from "./TotalBayar";
+import { API_URL } from "../utils/constants";
+import axios from "axios";
+import swal from "sweetalert";
 
 export default class Hasil extends Component {
   constructor(props) {
@@ -13,6 +16,7 @@ export default class Hasil extends Component {
       keranjangDetail: false,
       jumlah: 0,
       keterangan: "",
+      totalHarga: 0,
     };
   }
 
@@ -22,6 +26,7 @@ export default class Hasil extends Component {
       keranjangDetail: keranjang,
       jumlah: keranjang.jumlah,
       keterangan: keranjang.keterangan,
+      totalHarga: keranjang.total_harga,
     });
   };
 
@@ -34,12 +39,16 @@ export default class Hasil extends Component {
   tambah = () => {
     this.setState({
       jumlah: this.state.jumlah + 1,
+      totalHarga:
+        this.state.keranjangDetail.product.harga * (this.state.jumlah + 1),
     });
   };
   kurang = () => {
     if (this.state.jumlah !== 1) {
       this.setState({
         jumlah: this.state.jumlah - 1,
+        totalHarga:
+          this.state.keranjangDetail.product.harga * (this.state.jumlah - 1),
       });
     }
   };
@@ -52,7 +61,49 @@ export default class Hasil extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    console.log(this.state.keterangan);
+
+    const data = {
+      jumlah: this.state.jumlah,
+      total_harga: this.state.totalHarga,
+      product: this.state.keranjangDetail.product,
+      keterangan: this.state.keterangan,
+    };
+    axios
+      .put(API_URL + "keranjangs/" + this.state.keranjangDetail.id, data)
+      .then((res) => {
+        swal({
+          title: "Success",
+          text: data.product.nama + " successfully updated detail cart",
+          icon: "success",
+          button: false,
+          timer: 1250,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    this.handleClose();
+  };
+
+  hapusPesanan = (id) => {
+    axios
+      .delete(API_URL + "keranjangs/" + id)
+      .then((res) => {
+        swal({
+          title: "Success",
+          text:
+            this.state.keranjangDetail.product.nama + " successfully deleted",
+          icon: "error",
+          button: false,
+          timer: 1250,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    this.handleClose();
   };
 
   render() {
@@ -97,6 +148,7 @@ export default class Hasil extends Component {
               kurang={this.kurang}
               changeHandler={this.changeHandler}
               submitHandler={this.submitHandler}
+              hapusPesanan={this.hapusPesanan}
             />
           </ListGroup>
         )}

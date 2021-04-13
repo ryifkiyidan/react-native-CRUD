@@ -19,7 +19,8 @@ export default class TotalBayar extends Component {
   };
 
   render() {
-    const totalBayar = this.props.keranjangs.reduce(function (result, item) {
+    const keranjangs = this.props.keranjangs;
+    const totalBayar = keranjangs.reduce(function (result, item) {
       return result + item.total_harga;
     }, 0);
     return (
@@ -38,6 +39,7 @@ export default class TotalBayar extends Component {
               className="my-4 mr-2"
               size="lg"
               onClick={() => this.submitTotalBayar(totalBayar)}
+              disabled={keranjangs.length < 1}
             >
               <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
               <b>Bayar</b>

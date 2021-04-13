@@ -75,7 +75,7 @@ export default class Home extends Component {
                 text: keranjang.product.nama + " successfully added to carts",
                 icon: "success",
                 button: false,
-                timer: 1000,
+                timer: 1250,
               });
             })
             .catch((err) => {
@@ -95,7 +95,7 @@ export default class Home extends Component {
                 text: keranjang.product.nama + " successfully added to carts",
                 icon: "success",
                 button: false,
-                timer: 1000,
+                timer: 1250,
               });
             })
             .catch((err) => {
